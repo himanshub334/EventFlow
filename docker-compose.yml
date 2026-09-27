@@ -1,0 +1,29 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+  mongo:
+    image: mongo:8
+    ports: ["27017:27017"]
+    volumes: [mongo_data:/data/db]
+  localstack:
+    image: localstack/localstack:4.0
+    environment: [SERVICES=sqs, AWS_DEFAULT_REGION=ap-south-1]
+    ports: ["4566:4566"]
+    volumes:
+      - ./infra/localstack-init.sh:/etc/localstack/init/ready.d/init.sh:ro
+  api:
+    build: .
+    environment:
+      REDIS_URL: redis://redis:6379
+      MONGODB_URL: mongodb://mongo:27017
+      MONGODB_DB: eventflow
+      AWS_ENDPOINT_URL: http://localstack:4566
+      AWS_REGION: ap-south-1
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      SQS_QUEUE_URL: http://localstack:4566/000000000000/eventflow-events
+    ports: ["8000:8000"]
+    depends_on: [redis, mongo, localstack]
+volumes:
+  mongo_data:

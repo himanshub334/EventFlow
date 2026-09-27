@@ -1,0 +1,1 @@
+{"AlarmName":"EventFlow-ConsumerLag-1000","MetricName":"ApproximateNumberOfMessagesVisible","Namespace":"AWS/SQS","Statistic":"Average","Period":60,"EvaluationPeriods":2,"Threshold":1000,"ComparisonOperator":"GreaterThanThreshold","TreatMissingData":"notBreaching"}

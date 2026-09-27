@@ -1,0 +1,8 @@
+{
+  "info":{"name":"EventFlow","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},
+  "variable":[{"key":"baseUrl","value":"http://localhost:8000"}],
+  "item":[
+    {"name":"Health","request":{"method":"GET","url":"{{baseUrl}}/health"}},
+    {"name":"Ingest Impression","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"event_id\": \"evt-postman-001\",\n  \"event_type\": \"impression\",\n  \"campaign_id\": \"camp-101\",\n  \"device_id\": \"device-42\",\n  \"timestamp\": \"2026-09-27T12:00:00Z\",\n  \"country\": \"IN\"\n}"},"url":"{{baseUrl}}/events"}}
+  ]
+}
